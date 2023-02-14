@@ -31,7 +31,7 @@ export const userColumns = (post: (record: { id: number }) => void, album: (reco
             render: (_: any, record: any) => (
                 <div>
                     <Button type="link" onClick={() => post(record.id)}>Posts</Button>
-                    <Button type="dashed" onClick={()=> album(record.id)}>Albums</Button>
+                    <Button type="dashed" onClick={()=> album(record)}>Albums</Button>
                 </div>
 
             )

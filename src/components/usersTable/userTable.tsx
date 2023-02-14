@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const UsersTable = () => {
     const { users, isLoading, error } = useAppSelector(state => state.userReducer);
     const { albums } = useAppSelector((state: any) => state.albumReducer);
-    const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState(false);
+    const [userName, setUserName] = useState("")
     const dispatch = useAppDispatch();
     const nav = useNavigate();
     useEffect(() => {
@@ -21,13 +22,14 @@ const UsersTable = () => {
         nav("/post")
     }
     const handleUserAlbum = async (record: any) => {
-        await dispatch(fetchAlbumById(record))
+        await dispatch(fetchAlbumById(record.id))
+        setUserName(record.name)
         setModal(true)
     }
     return (
         <div className="users-table-container">
             <Modal
-                title={"Album Title"}
+                title={`Album Title of ${userName}`}
                 centered
                 open={modal}
                 onOk={() => setModal(prev => !prev)}
@@ -48,12 +50,6 @@ const UsersTable = () => {
                         size: "small",
                     }
                 }
-
-                onRow={(record) => {
-                    return {
-                        // onClick: event => fetchUserPost(record)
-                    }
-                }}
             />
         </div>
     )
